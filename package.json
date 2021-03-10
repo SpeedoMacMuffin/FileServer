@@ -11,7 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "exec": "^0.2.1",
     "express": "^4.17.1",
-    "express-fileupload": "^1.2.1"
+    "express-fileupload": "^1.2.1",
+    "http": "^0.0.1-security",
+    "url": "^0.11.0"
   }
 }
