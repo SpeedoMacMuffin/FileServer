@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 const app = express();
 const PORT = 4000;
 const fs = require("fs");
+const cors = require("cors");
+
+app.use(cors());
 
 app.use(fileUpload());
 app.use(bodyParser.json());
