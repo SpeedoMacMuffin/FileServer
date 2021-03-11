@@ -9,6 +9,15 @@ const uploadController = {
       return res.status(400).json({ message: "No file uploaded" });
     }
     const file = req.files.file;
+    const uploads = fs.readdirSync("uploads");
+    uploads.forEach((upload) => {
+      if (upload === file.name) {
+        file.name = file.name.replace(
+          /^([^.]+)$|(\.[^.]+)$/i,
+          "$1" + uuid + "$2"
+        );
+      }
+    });
 
     await file.mv(`uploads/${file.name}`, (err) => {
       if (err) {
