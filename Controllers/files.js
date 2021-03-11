@@ -42,6 +42,19 @@ const filesController = {
       });
     });
   },
+  deleteFile: async (req, res) => {
+    const { id } = req.params;
+    const file = `uploads/` + id;
+    await fs.unlink(file, (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send(err);
+      }
+      res.send({
+        message: "File deleted",
+      });
+    });
+  },
 };
 
 module.exports = filesController;
