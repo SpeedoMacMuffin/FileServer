@@ -1,8 +1,8 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
-const bodyParser = require("body-parser");
 const app = express();
-const PORT = 4000;
+const server = require("./serverConfig");
+const PORT = server.PORT;
 
 const cors = require("cors");
 
