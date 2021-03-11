@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const { exec } = require("child_process");
 
 const uploadController = {
   routeCheck: (req, res) => {},
@@ -9,6 +10,7 @@ const uploadController = {
       return res.status(400).json({ message: "No file uploaded" });
     }
     const file = req.files.file;
+
     const uploads = fs.readdirSync("uploads");
     uploads.forEach((upload) => {
       if (upload === file.name) {
@@ -18,7 +20,14 @@ const uploadController = {
         );
       }
     });
-
+    exec(`echo ${file.name}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`${stdout}`);
+      console.error(`stderr: ${stderr}`);
+    });
     await file.mv(`uploads/${file.name}`, (err) => {
       if (err) {
         console.error(err);
