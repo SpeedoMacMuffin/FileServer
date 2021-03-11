@@ -5,16 +5,16 @@ const filesController = {
     const dir = `uploads/`;
     try {
       const files = await fs.readdirSync(dir);
-      files.forEach((file) => {
-        const data = fs.stat(dir + file, (err, stats) => {
-          if (err) {
-            console.log(err);
-          }
-          file = { filename: file, stats };
+      // files.forEach((file) => {
+      //   const data = fs.stat(dir + file, (err, stats) => {
+      //     if (err) {
+      //       console.log(err);
+      //     }
+      //     file = { filename: file, stats };
 
-          console.log(file);
-        });
-      });
+      //     console.log(file);
+      //   });
+      // });
       res.json({
         message: `successfully fetched all files in folder ${dir}`,
         status: 200,
