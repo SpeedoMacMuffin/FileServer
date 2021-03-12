@@ -4,6 +4,7 @@ const filesController = require("../Controllers/files");
 
 router.get("/:id", filesController.getFileInfo);
 router.delete("/:id", filesController.deleteFile);
+router.delete("/", filesController.deleteAll);
 router.get("/", filesController.getAllFiles);
 
 module.exports = router;
