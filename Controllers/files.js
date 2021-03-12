@@ -1,4 +1,6 @@
 const fs = require("fs");
+const path = require("path");
+const { exec } = require("child_process");
 
 const filesController = {
   getAllFiles: async (__, res) => {
@@ -24,6 +26,28 @@ const filesController = {
     } catch (err) {
       console.error(err);
     }
+    // await fs.readdir(dir, function (err, files) {
+    //   if (err) {
+    //     throw err;
+    //   }
+
+    //   files
+    //     .map(function (file) {
+    //       return path.join(dir, file);
+    //     })
+    //     .filter(function (file) {
+    //       return fs.statSync(file).isFile();
+    //     })
+    //     .forEach(function (file) {
+    //       console.log("%s (%s)", file, path.extname(file));
+    //     });
+    // });
+    // res.json({
+    //   message: `successfully fetched all files in folder ${dir}`,
+    //   status: 200,
+    //   length: files.length,
+    //   data: files,
+    // });
   },
   getFileInfo: async (req, res) => {
     const { id } = req.params;
@@ -53,6 +77,25 @@ const filesController = {
       res.send({
         message: "File deleted",
       });
+    });
+  },
+  deleteAll: async (__, res) => {
+    const dir = "uploads";
+    await fs.unlink(dir, (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send(err);
+      } else {
+        fs.mkdir(dir, (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).send(err);
+          }
+          res.json({
+            message: `successfully deleted and reinstated path ${dir}`,
+          });
+        });
+      }
     });
   },
 };
