@@ -69,34 +69,47 @@ const filesController = {
   deleteFile: async (req, res) => {
     const { id } = req.params;
     const file = `uploads/` + id;
-    await fs.unlink(file, (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send(err);
-      }
-      res.send({
-        message: "File deleted",
+    const dirCheck = fs.readdirSync("uploads");
+    if (dirCheck.length) {
+      await fs.unlink(file, (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send(err);
+        }
+        console.log(`${file} deleted`);
+        res.json({
+          code: 200,
+          message: `${file} deleted`,
+        });
       });
-    });
+    } else {
+      return res.send({
+        message: `Folder already empty`,
+      });
+    }
   },
   deleteAll: async (__, res) => {
     const dir = "uploads";
-    await fs.unlink(dir, (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send(err);
-      } else {
-        fs.mkdir(dir, (err) => {
-          if (err) {
-            console.error(err);
-            return res.status(500).send(err);
-          }
-          res.json({
-            message: `successfully deleted and reinstated path ${dir}`,
+    const dirCheck = fs.readdirSync("/uploads");
+
+    if (dirCheck) {
+      await fs.unlink(dir, (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send(err);
+        } else {
+          fs.mkdir(dir, (err) => {
+            if (err) {
+              console.error(err);
+              return res.status(500).send(err);
+            }
+            res.json({
+              message: `successfully deleted and reinstated path ${dir}`,
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
   },
 };
 
