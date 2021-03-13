@@ -20,14 +20,14 @@ const uploadController = {
         );
       }
     });
-    exec(`echo ${file.name}`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-        return;
-      }
-      console.log(`${stdout}`);
-      console.error(`stderr: ${stderr}`);
-    });
+    // exec(`echo ${file.name}`, (error, stdout, stderr) => {
+    //   if (error) {
+    //     console.error(`exec error: ${error}`);
+    //     return;
+    //   }
+    //   console.log(`${stdout}`);
+    //   console.error(`stderr: ${stderr}`);
+    // });
     await file.mv(`uploads/${file.name}`, (err) => {
       if (err) {
         console.error(err);
@@ -38,6 +38,7 @@ const uploadController = {
         filePath: `uploads/${file.name}`,
       });
     });
+    console.log(file);
   },
   open: (req, res) => {
     const { id } = req.params;
