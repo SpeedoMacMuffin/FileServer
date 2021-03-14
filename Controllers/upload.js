@@ -36,6 +36,7 @@ const uploadController = {
       res.send({
         fileName: file.name,
         filePath: `uploads/${file.name}`,
+        fileSize: file.size,
       });
     });
     console.log(file);
