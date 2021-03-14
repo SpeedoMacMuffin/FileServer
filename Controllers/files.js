@@ -7,16 +7,6 @@ const filesController = {
     const dir = `uploads/`;
     try {
       const files = await fs.readdirSync(dir);
-      // files.forEach((file) => {
-      //   const data = fs.stat(dir + file, (err, stats) => {
-      //     if (err) {
-      //       console.log(err);
-      //     }
-      //     file = { filename: file, stats };
-
-      //     console.log(file);
-      //   });
-      // });
       res.json({
         message: `successfully fetched all files in folder ${dir}`,
         status: 200,
@@ -26,28 +16,6 @@ const filesController = {
     } catch (err) {
       console.error(err);
     }
-    // await fs.readdir(dir, function (err, files) {
-    //   if (err) {
-    //     throw err;
-    //   }
-
-    //   files
-    //     .map(function (file) {
-    //       return path.join(dir, file);
-    //     })
-    //     .filter(function (file) {
-    //       return fs.statSync(file).isFile();
-    //     })
-    //     .forEach(function (file) {
-    //       console.log("%s (%s)", file, path.extname(file));
-    //     });
-    // });
-    // res.json({
-    //   message: `successfully fetched all files in folder ${dir}`,
-    //   status: 200,
-    //   length: files.length,
-    //   data: files,
-    // });
   },
   getFileInfo: async (req, res) => {
     const { id } = req.params;
