@@ -20,26 +20,37 @@ const uploadController = {
         );
       }
     });
-    // exec(`echo ${file.name}`, (error, stdout, stderr) => {
-    //   if (error) {
-    //     console.error(`exec error: ${error}`);
-    //     return;
-    //   }
-    //   console.log(`${stdout}`);
-    //   console.error(`stderr: ${stderr}`);
-    // });
     await file.mv(`uploads/${file.name}`, (err) => {
       if (err) {
         console.error(err);
         return res.status(500).send(err);
       }
+      const filetypes = /jpeg|jpg|png|gif|mp4/;
+      const extname = filetypes.test(path.extname(file.name).toLowerCase());
+      const mimetype = filetypes.test(file.mimetype);
+      //will only work on pi. removes exif-data from supported files
+      // if (mimetype && extname) {
+      //   exec(
+      //     `exiftool -EXIF= /home/pi/DeadNode/FileServer/uploads/${file.name}`,
+      //     (e, stdout, stderr) => {
+      //       if (e) {
+      //         console.error(e);
+      //         throw e;
+      //       }
+
+      //       console.log("stdout", stdout);
+      //       exec(
+      //         `rm -rf /home/pi/DeadNode/FileServer/uploads/${file.name}_original`
+      //       );
+      //     }
+      //   );
+      // }
       res.send({
         fileName: file.name,
         filePath: `uploads/${file.name}`,
         fileSize: file.size,
       });
     });
-    console.log(file);
   },
   open: (req, res) => {
     const { id } = req.params;
