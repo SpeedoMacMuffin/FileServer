@@ -25,7 +25,7 @@ const uploadController = {
         console.error(err);
         return res.status(500).send(err);
       }
-      const filetypes = /jpeg|jpg|png|gif|mp4/;
+      const filetypes = /jpeg|jpg|png|gif/;
       const extname = filetypes.test(path.extname(file.name).toLowerCase());
       const mimetype = filetypes.test(file.mimetype);
       //will only work on pi. removes exif-data from supported files
