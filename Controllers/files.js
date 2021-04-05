@@ -3,6 +3,7 @@ const path = require("path");
 const { exec } = require("child_process");
 
 const filesController = {
+  //get all files
   getAllFiles: async (__, res) => {
     const dir = `uploads/`;
     try {
@@ -17,6 +18,7 @@ const filesController = {
       console.error(err);
     }
   },
+  //get Information for file
   getFileInfo: async (req, res) => {
     const { id } = req.params;
     const file = `uploads/` + id;
@@ -34,6 +36,7 @@ const filesController = {
       });
     });
   },
+  //deletes file(currently unused)
   deleteFile: async (req, res) => {
     const { id } = req.params;
     const file = `uploads/` + id;
@@ -56,6 +59,7 @@ const filesController = {
       });
     }
   },
+  //deletes all files
   deleteAll: async (__, res) => {
     const dir = "uploads";
     const dirCheck = fs.readdirSync("/uploads");

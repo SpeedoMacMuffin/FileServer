@@ -3,6 +3,7 @@ const fs = require("fs");
 const { exec } = require("child_process");
 
 const uploadController = {
+  //upload single file
   upload: async (req, res) => {
     const uuid = Math.floor(Math.random() * 100000 + 1);
     if (req.files === null) {
@@ -51,6 +52,7 @@ const uploadController = {
       });
     });
   },
+  //opens file
   open: (req, res) => {
     const { id } = req.params;
     const file = `uploads/${id}`;
